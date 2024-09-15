@@ -31,7 +31,7 @@ pip install pandas
 1. Sklonuj repozytorium:
 
    ```bash
-   git clone https://github.com/marotox123/nazwa-repozytorium.git
+   git clone https://github.com/marotox123/makapaka.git
    ```
 
 2. Wejdź do folderu projektu:
