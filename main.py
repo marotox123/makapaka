@@ -18,8 +18,7 @@ logo = f"""
 {RESET}
 """
 tekst_pod_logo = f"{BLUE}Program który wszytko robi za ciebie{RESET}"
-print(logo)
-print(tekst_pod_logo)
+
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -162,6 +161,8 @@ def generate_cost_estimate():
         df_cennik.to_excel(writer, sheet_name="Kosztorys Usług", index=False)
     print(f'{GREEN}Kosztorys został wygenerowany i zapisany jako kosztorys_uslug_komputerowych.xlsx: SUCCESS{RESET}')
 if is_admin():
+    print(logo)
+    print(tekst_pod_logo)
     create_user_account("Lekarz", "Lekarz2023!", admin=True)
     create_user_account("Recepcja", "Recepcja2023!", admin=False)
     create_user_group("Przychodnia", ["Lekarz", "Recepcja"])
