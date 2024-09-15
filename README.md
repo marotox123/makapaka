@@ -37,7 +37,7 @@ pip install pandas
 2. Wejdź do folderu projektu:
 
    ```bash
-   cd nazwa-repozytorium
+   cd makapaka
    ```
 
 3. Zainstaluj wymagane biblioteki Pythona:
