@@ -45,6 +45,12 @@ pip install pandas
    ```bash
    pip install pandas
    ```
+   ```bash
+   pip install psutil
+   ```
+   ```bash
+   pip install openpyxl
+   ```
 
 ---
 
