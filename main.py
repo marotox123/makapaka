@@ -144,6 +144,20 @@ def install_printer(printer_name, model_name):
     except Exception as e:
         print(f'Nie udało się zainstalować drukarki: FAILED')
         print(str(e))
+def configure_printer_access_and_permissions(printer_name="Wirtualna_Drukarka"):
+    try:
+        subprocess.run(f'icacls "C:\\Windows\\System32\\spool\\PRINTERS" /grant Przychodnia:(M)', shell=True,
+                       check=True)
+        subprocess.run(f'icacls "C:\\Windows\\System32\\spool\\PRINTERS" /grant Przychodnia:(P)', shell=True,
+                       check=True)
+        print(f'{GREEN}Grupa Przychodnia uzyskała dostęp do zarządzania i drukowania: SUCCESS{RESET}')
+        subprocess.run(f'schtasks /create /tn "AllowPrinterAccess" /tr "icacls C:\\Windows\\System32\\spool\\PRINTERS '
+                       f'/grant Everyone:(F)" /sc daily /st 16:00 /et 23:00', shell=True, check=True)
+        print(f'{GREEN}Drukarka jest dostępna dla wszystkich użytkowników w godzinach 16:00-23:00: SUCCESS{RESET}')
+    except subprocess.CalledProcessError as e:
+        print(f'{RED}Nie udało się przydzielić uprawnień lub skonfigurować dostępu: {e}{RESET}')
+    except Exception as e:
+        print(f'{RED}Błąd: {e}{RESET}')
 def install_and_configure_printer(printer_name="Wirtualna_Drukarka", port_name="LPT1:",
                                   model_name="Generic / Text Only"):
     try:
@@ -153,6 +167,7 @@ def install_and_configure_printer(printer_name="Wirtualna_Drukarka", port_name="
         subprocess.run(f'rundll32 printui.dll,PrintUIEntry /Xs /n "{printer_name}" attributes shared=TRUE', shell=True,
                        check=True)
         print(f'{GREEN}Drukarka {printer_name} została skonfigurowana jako współdzielona: SUCCESS{RESET}')
+        configure_printer_access_and_permissions(printer_name)
     except subprocess.CalledProcessError as e:
         print(f'{RED}Nie udało się zainstalować lub skonfigurować drukarki {printer_name}: {e}{RESET}')
     except Exception as e:
